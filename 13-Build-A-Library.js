@@ -25,40 +25,88 @@ If you’re looking for a challenge, try to create the four classes without usin
 */
 
 class Media {
-  constructor(title) {
-    this._title = title;
-    this._isCheckedOut = false;
-    this._ratings = [];
+    constructor(title) {
+      this._title = title;
+      this._isCheckedOut = false;
+      this._ratings = [];
+    }
+    // getters for all properties
+    get title() {
+      return this._title;
+    }
+  
+    get isCheckedOut()  {
+      return this._isCheckedOut;
+    }
+  
+    get ratings() {
+      return this._ratings;
+    }
+    //setter 
+    set isCheckedOut(isCheckedOut)  {
+      this._isCheckedOut = isCheckedOut;
+    }
+    // all getters common across all classes that are extended from this class
+    getAverageRating()  {
+      let resultSum = this._ratings.reduce((currentVal, rating) => currentVal + rating, 0);
+      return resultSum / this._ratings.length;
+    }
+  
+    toggleCheckOutStatus()  {
+      return this._isCheckedOut = !this._isCheckedOut;
+    }
+  
+    addRating(rating) {
+      this._ratings.push(rating);
+    }
   }
-
-  get title() {
-    return this._title;
+  
+  class Book extends Media  {
+    constructor(title, author, pages) {
+      super(title);
+      this._author = author;
+      this._pages = pages;
+    }
+    // getters different from Media constructor
+    get pages()  {
+      return this._pages;
+    }
+  
+    get author()  {
+      return this._author;
+    }
   }
-
-  get isCheckedOut()  {
-    return this._isCheckedOut;
+  
+  class Movie extends Media {
+    constructor(title, director, runTime) {
+      super(title);
+      this._director = director;
+      this._runTime = runTime;
+    }
+    // getters different from Media constructor
+    get director()  {
+      return this._director;
+    }
+    
+    get runTime() {
+      return this._runTime;
+    }
   }
-
-  get ratings() {
-    return this._ratings;
-  }
-
-  set isCheckedOut(isCheckedOut)  {
-    this._isCheckedOut = isCheckedOut;
-  }
-
-  getAverageRating()  {
-    let resultSum = this._ratings.reduce((currentVal, rating) => currentVal + rating, 0);
-    return resultSum / this._ratings.length;
-  }
-
-  toggleCheckOutStatus()  {
-    return this._isCheckedOut = !this._isCheckedOut;
-  }
-
-  addRating(rating) {
-    this._ratings.push(rating);
-  }
-}
-
-
+  
+  const historyOfEverything = new Book('A Short History of Nearly Everything', 'Bill Bryson', 544); // declaring the historyOfEverything
+  console.log(historyOfEverything); // prints the historyOfEverything
+  historyOfEverything.toggleCheckOutStatus(); // toggle the status of the check out status
+  console.log(historyOfEverything.isCheckedOut); // prints the status of a checkout process on historyOfEverything
+  
+  historyOfEverything.addRating(4); // add sample ratings
+  historyOfEverything.addRating(5);
+  historyOfEverything.addRating(5);
+  console.log(historyOfEverything.getAverageRating()); // prints the average rating
+  
+  // same as above with the book
+  const speed = new Movie('Speed', 'Jan de Bont', 116); 
+  console.log(speed.toggleCheckOutStatus()); 
+  speed.addRating(1);
+  speed.addRating(1);
+  speed.addRating(5);
+  console.log(speed.getAverageRating());

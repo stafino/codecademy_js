@@ -23,3 +23,37 @@ Includes everything in the School class, plus one additional property
 Properties: sportsTeams (array of strings)
 If you’re looking for a challenge, create the constructor() and getters for the four classes above. Then, use the setter and methods specifications in steps five, six, and seven to finish the project.
 */
+
+class School {
+    constructor(name, level, numberOfStudents)  {
+      this._name = name;
+      this._level = level;
+      this._numberOfStudents = numberOfStudents;
+    }
+  
+    get name()  {
+      return this._name;
+    }
+    get level() {
+      return this._level;
+    }
+    get numberOfStudents()  {
+      return this._numberOfStudents;
+    }
+    set numberOfStudents(numberOfStudents)  {
+      if(typeof numberOfStudents === number)  {
+        this._numberOfStudents = numberOfStudents;
+      } console.log('Invalid input: numberOfStudents must be set to a Number.');
+    }
+  
+    quickFacts()  {
+      console.log(`${this._name} educates ${this._numberOfStudents} students at the ${this._level} school level`);
+    }
+    static substituteTeachers(arr) {
+      let randomValue = Math.floor(arr.length * Math.random()); 
+      return arr[randomValue];
+    }
+  }
+  
+  const zakladna = new School('Zakladna', 1, 30);
+  
